@@ -19,6 +19,6 @@ const Servidor = http.createServer((req, res) => {
 });
 
 // El servidor escucha en el puerto 8080
-Servidor.listen(8080, () => {
+Servidor.listen(80, () => {
   console.log("Servidor corriendo en el puerto 8080");
 });
