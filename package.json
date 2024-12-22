@@ -1,0 +1,17 @@
+{
+  "name": "ejercicios_express",
+  "version": "1.0.0",
+  "description": "Ejercicios de express",
+  "main": "Ejercicio_1.js",
+  "type": "module",
+  "scripts": {
+  "start": "node Ejercicio_1.js",
+  "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "SebastianWebApp"
+  },
+  "author": "Mateo Espinosa",
+  "license": "ISC"
+}
