@@ -45,3 +45,6 @@ jobs:
             # Usar la red del host y mapear el puerto 8080
             docker run -d --name my_container -p 8080:8080 sebastianwebapp/ejercicio_1:latest
             echo "Desplegando en ${{ secrets.HOST_DNS }} con la rama ${{ github.ref_name }}"
+            sleep 10
+            docker ps | grep my_container || echo "El contenedor no está corriendo correctamente"
+            
