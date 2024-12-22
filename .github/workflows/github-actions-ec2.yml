@@ -43,7 +43,6 @@ jobs:
             docker stop my_container || true 
             docker rm my_container || true 
             # Opción 1: Usar la red del host
-            docker run -d --name my_container --network host sebastianwebapp/ejercicio_1:latest
-
+            docker run -d --name my_container -p 80:8080 sebastianwebapp/ejercicio_1:latest
             echo "Desplegando en ${{ secrets.HOST_DNS }} con la rama ${{ github.ref_name }}"
 
