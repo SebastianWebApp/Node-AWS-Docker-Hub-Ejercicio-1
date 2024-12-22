@@ -1,4 +1,4 @@
-name: CI/CD Pipeline for SebastianWebApp
+name: CI/CD Pipeline for Ejercicio_1
 
 on:
   push:
@@ -22,8 +22,28 @@ jobs:
 
       # Build the Docker image
       - name: Build Docker image
-        run: docker build -t sebastianwebapp/sebastianwebapp:latest .
+        run: docker build -t sebastianwebapp/ejercicio_1:latest .
 
       # Push the Docker image to Docker Hub
       - name: Push Docker image to DockerHub
-        run: docker push sebastianwebapp/sebastianwebapp:latest
+        run: docker push sebastianwebapp/ejercicio_1:latest
+  
+  deploy-to-ec2:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger redeploy on EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_DNS }}  # Usar un solo valor para el host
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker pull sebastianwebapp/ejercicio_1:latest 
+            docker stop my_container || true 
+            docker rm my_container || true 
+            # Opción 1: Usar la red del host
+            docker run -d --name my_container --network host sebastianwebapp/ejercicio_1:latest
+
+            echo "Desplegando en ${{ secrets.HOST_DNS }} con la rama ${{ github.ref_name }}"
+
